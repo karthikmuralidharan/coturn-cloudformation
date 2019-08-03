@@ -357,6 +357,7 @@
                                 "apt-get update\n",
                                 "apt-get install coturn -y\n",
                                 "echo TURNSERVER_ENABLED=1 >> /etc/default/coturn\n",
+                                "echo alt-listening-port=443 >> /etc/turnserver.conf\n",
                                 "echo external-ip=",
                                 {
                                     "Ref": "IPAddress"
@@ -453,6 +454,14 @@
                         "CidrIp": {
                             "Ref": "PublicLocation"
                         }
+                    }, 
+                    {
+                        "IpProtocol": "udp",
+                        "FromPort": "443",
+                        "ToPort": "443",
+                        "CidrIp": {
+                            "Ref": "PublicLocation"
+                        }
                     },
                     {
                         "IpProtocol": "tcp",
@@ -464,8 +473,24 @@
                     },
                     {
                         "IpProtocol": "udp",
+                        "FromPort": "80",
+                        "ToPort": "80",
+                        "CidrIp": {
+                            "Ref": "PublicLocation"
+                        }
+                    },
+                    {
+                        "IpProtocol": "udp",
                         "FromPort": "3478",
                         "ToPort": "3478",
+                        "CidrIp": {
+                            "Ref": "PublicLocation"
+                        }
+                    },
+                    {
+                        "IpProtocol": "udp",
+                        "FromPort": "49152",
+                        "ToPort": "49152",
                         "CidrIp": {
                             "Ref": "PublicLocation"
                         }
